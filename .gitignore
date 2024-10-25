@@ -1,0 +1,8 @@
+.dockerignore
+.idea
+.vscode/settings.json
+**.pyc
+__pycache__/
+*.py[cod]
+backend/db.sqlite3
+.env

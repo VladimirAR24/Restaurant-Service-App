@@ -22,6 +22,7 @@ public class Startup
 
             x.UsingRabbitMq((context, cfg) =>
             {
+                //http://localhost:(порт см в контейнере)
                 cfg.Host("rabbitmq://localhost", h =>
                 {
                     h.Username("guest");

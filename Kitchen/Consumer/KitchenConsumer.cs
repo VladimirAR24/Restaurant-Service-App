@@ -9,16 +9,14 @@ public class KitchenConsumer : IConsumer<YourMessage>
     {
         var message = context.Message;
 
-        // Выполните алгоритмическую обработку данных
         var result = ProcessMessage(message);
 
-        // Отправка результатов в другую очередь
         await context.Publish(new YourResultMessage { Result = result });
     }
 
     private string ProcessMessage(YourMessage message)
     {
-        // Ваш алгоритм обработки данных
+        // Пока заглушка
         return "Processed data";
     }
 }

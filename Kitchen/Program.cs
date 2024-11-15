@@ -13,6 +13,6 @@ public class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<Startup>();  // Здесь указываем Startup
+                webBuilder.UseStartup<Startup>();   
             });
 }

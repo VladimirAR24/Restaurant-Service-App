@@ -12,15 +12,12 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
-    // Метод для добавления сервисов в контейнер
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
 
-        // Настройка MassTransit с RabbitMQ
         services.AddMassTransit(x =>
         {
-            // Регистрируем consumer для обработки сообщений
             x.AddConsumer<KitchenConsumer>();
 
             x.UsingRabbitMq((context, cfg) =>
@@ -31,19 +28,14 @@ public class Startup
                     h.Password("guest");
                 });
 
-                // Определяем очередь, на которую будет подписан consumer
                 cfg.ReceiveEndpoint("kitchen_queue", e =>
                 {
                     e.ConfigureConsumer<KitchenConsumer>(context);
                 });
             });
         });
-
-        // Включаем MassTransit Hosted Service
-        //services.AddMassTransitHostedService();
     }
 
-    // Метод конфигурирует HTTP конвейер запросов
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())

@@ -1,5 +1,7 @@
 ﻿using Kitchen.Consumer;
+using Kitchen.DbServices;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kitchen;
 
@@ -16,25 +18,9 @@ public class Startup
     {
         services.AddControllers();
 
-        services.AddMassTransit(x =>
-        {
-            x.AddConsumer<KitchenConsumer>();
-
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                //http://localhost:(порт см в контейнере)
-                cfg.Host("rabbitmq://localhost", h =>
-                {
-                    h.Username("guest");
-                    h.Password("guest");
-                });
-
-                cfg.ReceiveEndpoint("kitchen_queue", e =>
-                {
-                    e.ConfigureConsumer<KitchenConsumer>(context);
-                });
-            });
-        });
+        // Подключение базы данных
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

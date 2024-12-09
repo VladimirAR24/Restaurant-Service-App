@@ -10,3 +10,7 @@ backend/db.sqlite3
 Kitchen/obj/
 [Bb]in/
 .vs/
+
+Broker/Broker/obj/
+Shared/obj/
+obj/

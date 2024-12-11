@@ -41,7 +41,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "https://localhost:8000",  
     "https://127.0.0.1:8000",
-]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'djoser',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

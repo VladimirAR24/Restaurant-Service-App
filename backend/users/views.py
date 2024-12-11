@@ -5,13 +5,7 @@ from .models import User
 from users.serializers import UserSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, RetrieveUpdateAPIView, CreateAPIView
 
-#from django_filters.rest_framework import DjangoFilterBackend
-#from rest_framework.filters import SearchFilter
 from rest_framework import permissions
-
-#from rest_framework.response import Response
-#from rest_framework.views import APIView
-#from django.forms.models import model_to_dict
 
 class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()

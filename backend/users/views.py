@@ -1,4 +1,10 @@
-from django.shortcuts import render
+from rest_framework.exceptions import NotFound
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from .models import User
+from users.serializers import UserSerializer
+from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, RetrieveUpdateAPIView, CreateAPIView
+
 from rest_framework import permissions
 
 class UserCreateAPIView(CreateAPIView):
@@ -62,4 +68,3 @@ class UserDestroyAPIView(DestroyAPIView):
     permission_classes = [
         permissions.AllowAny
     ]
-

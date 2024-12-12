@@ -27,7 +27,6 @@ else:
     DOMAIN_NAME = env('DOMAIN_NAME')
 
 ALLOWED_HOSTS = ['*']
-
 CSRF_TRUSTED_ORIGINS = [
     f'https://{DOMAIN_NAME}:8000/*',
     "http://localhost:8000",  
@@ -44,7 +43,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://127.0.0.1:8000",
 ]
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,15 +51,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'drf_spectacular',
 
     'users',
 
-
     'rest_framework.authtoken',
 
     'djoser',
-
 
 ]
 
@@ -150,7 +148,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
+
+    # DOCUMENTING
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    # AUTHENTIFICATION
+    'DEFAULT_AUTHENTIFICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
 }
 
 SPECTACULAR_SETTINGS = {

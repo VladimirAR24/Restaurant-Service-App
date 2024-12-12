@@ -27,7 +27,23 @@ else:
     DOMAIN_NAME = env('DOMAIN_NAME')
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','http://localhost:8000']
+
+CSRF_TRUSTED_ORIGINS = [
+    f'https://{DOMAIN_NAME}:8000/*',
+    "http://localhost:8000",  
+    "http://127.0.0.1:8000",
+    "https://localhost:8000",  
+    "https://127.0.0.1:8000",
+    ]
+
+CORS_ALLOWED_ORIGINS = [
+    f'https://{DOMAIN_NAME}:8000/*',
+    "http://localhost:8000",  
+    "http://127.0.0.1:8000",
+    "https://localhost:8000",  
+    "https://127.0.0.1:8000",
+]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,7 +57,12 @@ INSTALLED_APPS = [
 
     'users',
 
-    'rest_framework',
+
+    'rest_framework.authtoken',
+
+    'djoser',
+
+
 ]
 
 MIDDLEWARE = [

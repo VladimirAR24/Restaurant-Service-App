@@ -1,12 +1,30 @@
-from rest_framework.exceptions import NotFound
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.models import User
+from rest_framework.exceptions import ValidationError, NotFound
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 from .models import User
 from users.serializers import UserSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, RetrieveUpdateAPIView, CreateAPIView
 
 from rest_framework import permissions
 
+class LoginAPIView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        user = self.validate(request.data)
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
+
+    def validate(self, data):
+        username = data.get('username')
+        password = data.get('password')
+        user = authenticate(username=username, password=password)
+        if user is None:
+            raise ValidationError('Invalid credentials')
+        return user
+    
 class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
     model = User
